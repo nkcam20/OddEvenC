@@ -17,9 +17,6 @@ jobs:
         run: |
           gcc -o OddEven_Linux *.C
 
-#      - name: Build for Windows
-#        run: |
-#          gcc -o OddEven_Windows.exe *.C -static -lmingw32
       - name: Set up MinGW
         uses: egor-tensin/setup-mingw@v2
         with:
@@ -27,7 +24,7 @@ jobs:
 
       - name: Build for Windows
         run: |
-          gcc -o OddEven_Windows.exe *.C -static -li686-w64-mingw32-gcc
+          cc -o OddEven_Windows.exe *.C -static
 
       - name: Release
         uses: softprops/action-gh-release@v2
