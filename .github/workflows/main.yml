@@ -27,7 +27,7 @@ jobs:
 
       - name: Build for Windows
         run: |
-          gcc -o OddEven_Windows.exe *.C -static -lmingw32
+          gcc -o OddEven_Windows.exe *.C -static -li686-w64-mingw32-gcc
 
       - name: Release
         uses: softprops/action-gh-release@v2
