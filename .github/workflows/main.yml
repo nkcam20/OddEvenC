@@ -22,7 +22,7 @@ jobs:
           gcc -o OddEven_Windows *.C -static -lmingw32
 
       - name: Create release
-        uses: actions/create-release@v1
+        uses: actions/create-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_NAME: OddEven
@@ -41,7 +41,7 @@ jobs:
           path: OddEven_Windows
 
       - name: Attach binaries to release
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           UPLOAD_URL: ${{ steps.create-release.outputs.upload_url }}
@@ -50,7 +50,7 @@ jobs:
           path: OddEven_Linux
 
       - name: Attach binaries to release
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           UPLOAD_URL: ${{ steps.create-release.outputs.upload_url }}
