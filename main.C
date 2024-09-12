@@ -5,5 +5,9 @@ int main()
 	int a;
 	printf("Enter value of A:\n");
 	scanf("%d", &a);
-	printf("%s\n", a%2==0?"Even":"Odd");
+	if(a%2==0)
+		printf("Even\n");
+	else
+		printf("Odd\n");
+
 }
