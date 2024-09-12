@@ -1,0 +1,59 @@
+name: Build and Release OddEven
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build for Linux
+        run: |
+          gcc -o OddEven_Linux *.C
+
+      - name: Build for Windows
+        run: |
+          gcc -o OddEven_Windows *.C -static -lmingw32
+
+      - name: Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_NAME: OddEven
+          RELEASE_BODY: Automated release of OddEven binaries
+
+      - name: Upload Linux binary to release
+        uses: actions/upload-artifact@v2
+        with:
+          name: OddEven_Linux
+          path: OddEven_Linux
+
+      - name: Upload Windows binary to release
+        uses: actions/upload-artifact@v2
+        with:
+          name: OddEven_Windows
+          path: OddEven_Windows
+
+      - name: Attach binaries to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UPLOAD_URL: ${{ steps.create-release.outputs.upload_url }}
+        with:
+          name: OddEven_Linux
+          path: OddEven_Linux
+
+      - name: Attach binaries to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UPLOAD_URL: ${{ steps.create-release.outputs.upload_url }}
+        with:
+          name: OddEven_Windows
+          path: OddEven_Windows
